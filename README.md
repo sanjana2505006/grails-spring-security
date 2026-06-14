@@ -2,7 +2,7 @@
 
 Sample app for **Securing Grails Applications with Spring Security Core** (Apache Grails `8.0.0-SNAPSHOT`, JDK 21).
 
-This guide sample focuses on protecting a small REST API with Spring Security: HTTP Basic authentication, role-based access control, and the correct HTTP status codes (`401` unauthorized, `403` forbidden, `422` validation errors).
+The guide walks through securing a small REST API with Spring Security Core: User and Role setup, HTTP Basic authentication, `@Secured` on controller actions, and Spock unit and integration tests against a real PostgreSQL database (Testcontainers). Spring Security evaluates access before your controller runs, so you keep thin REST controllers and JSON views — mostly declaring who can call which endpoint, and returning 401, 403, or 422 where appropriate.
 
 ## Layout
 
