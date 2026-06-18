@@ -3,8 +3,10 @@ package example
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import grails.compiler.GrailsCompileStatic
+import grails.persistence.Entity
 
 @GrailsCompileStatic
+@Entity
 @EqualsAndHashCode(includes = 'username')
 @ToString(includes = 'username', includeNames = true, includePackage = false)
 class User implements Serializable {
@@ -24,7 +26,7 @@ class User implements Serializable {
 
     static constraints = {
         password blank: false, password: true
-        username blank: false, unique: true
+        username blank: false, nullable: false, unique: true
     }
 
     static mapping = {

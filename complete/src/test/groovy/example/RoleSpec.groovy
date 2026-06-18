@@ -15,7 +15,11 @@ class RoleSpec extends Specification implements DataTest {
     }
 
     void 'authority is required'() {
-        expect:
-        !new Role().validate()
+        when:
+        def role = new Role(authority: '')
+
+        then:
+        !role.validate()
+        role.errors['authority'].code in ['blank', 'nullable']
     }
 }

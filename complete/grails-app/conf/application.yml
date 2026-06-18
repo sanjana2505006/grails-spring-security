@@ -16,7 +16,7 @@ environments:
       url: jdbc:postgresql://localhost:5432/devDb?tcpKeepAlive=true
   test:
     dataSource:
-      dbCreate: update
+      dbCreate: create-drop
       url: jdbc:postgresql://localhost:5432/testDb?tcpKeepAlive=true
   production:
     dataSource:

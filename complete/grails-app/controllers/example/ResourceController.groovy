@@ -3,6 +3,7 @@ package example
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 
+// Default for actions without their own @Secured; rejectIfNoRule denies anything that slips through unannotated.
 @Secured(['ROLE_USER'])
 class ResourceController {
 

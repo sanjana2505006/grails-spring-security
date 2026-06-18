@@ -10,8 +10,12 @@ class UserSpec extends Specification implements DataTest {
     }
 
     void 'username is required'() {
-        expect:
-        !new User(password: 'secret').validate()
+        when:
+        def user = new User(username: '', password: 'secret')
+
+        then:
+        !user.validate()
+        user.errors['username'].code in ['blank', 'nullable']
     }
 
     void 'username must be unique'() {

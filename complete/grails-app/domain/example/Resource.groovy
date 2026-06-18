@@ -9,7 +9,7 @@ class Resource {
     String description
 
     static constraints = {
-        name blank: false, maxSize: 255
+        name blank: false, nullable: false, maxSize: 255
         description nullable: true, maxSize: 1000
     }
 

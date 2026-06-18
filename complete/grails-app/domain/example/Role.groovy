@@ -3,8 +3,10 @@ package example
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import grails.compiler.GrailsCompileStatic
+import grails.persistence.Entity
 
 @GrailsCompileStatic
+@Entity
 @EqualsAndHashCode(includes = 'authority')
 @ToString(includes = 'authority', includeNames = true, includePackage = false)
 class Role implements Serializable {
@@ -14,7 +16,7 @@ class Role implements Serializable {
     String authority
 
     static constraints = {
-        authority blank: false, unique: true
+        authority blank: false, nullable: false, unique: true
     }
 
     static mapping = {

@@ -29,4 +29,68 @@ class ResourceControllerSpec extends Specification implements ControllerUnitTest
         then:
         response.status == 404
     }
+
+    void 'save creates resource when valid'() {
+        given:
+        request.method = 'POST'
+        request.JSON = [name: 'Team Notes', description: 'Shared notes']
+
+        when:
+        controller.save()
+
+        then:
+        response.status == 201
+        Resource.count() == 1
+        Resource.first().name == 'Team Notes'
+    }
+
+    void 'update persists changes when valid'() {
+        given:
+        def resource = new Resource(name: 'Original', description: 'Before').save(flush: true)
+        request.method = 'PUT'
+        request.JSON = [name: 'Updated', description: 'After']
+
+        when:
+        controller.update(resource.id)
+
+        then:
+        response.status == 200
+        resource.refresh().name == 'Updated'
+    }
+
+    void 'update returns 404 when resource missing'() {
+        given:
+        request.method = 'PUT'
+        request.JSON = [name: 'Nobody']
+
+        when:
+        controller.update(99L)
+
+        then:
+        response.status == 404
+    }
+
+    void 'delete removes resource'() {
+        given:
+        def resource = new Resource(name: 'Disposable').save(flush: true)
+        request.method = 'DELETE'
+
+        when:
+        controller.delete(resource.id)
+
+        then:
+        response.status == 204
+        Resource.count() == 0
+    }
+
+    void 'delete returns 404 when resource missing'() {
+        given:
+        request.method = 'DELETE'
+
+        when:
+        controller.delete(99L)
+
+        then:
+        response.status == 404
+    }
 }

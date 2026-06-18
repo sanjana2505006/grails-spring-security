@@ -11,10 +11,11 @@ class ResourceSpec extends Specification implements DataTest {
 
     void 'name is required'() {
         when:
-        def resource = new Resource(description: 'Notes').validate()
+        def resource = new Resource(name: '', description: 'Notes')
 
         then:
-        !resource
+        !resource.validate()
+        resource.errors['name'].code in ['blank', 'nullable']
     }
 
     void 'valid resource passes constraints'() {
